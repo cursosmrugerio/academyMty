@@ -2,6 +2,10 @@ package com.taskflow.config;
 
 import com.taskflow.security.JwtAuthenticationFilter;
 import jakarta.servlet.DispatcherType;
+import java.util.List;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -53,6 +57,14 @@ public class SecurityConfig {
                 // viajan con tu cookie). Con token en header no hay cookie que forjar. En una app
                 // server-side con sesión NO se deshabilita.
                 .csrf(csrf -> csrf.disable())
+                // CORS ANTES que todo lo demas: sin esto, un frontend servido en otro origen
+                // (localhost:5173, :3000, :4200...) ni siquiera llega. El navegador manda primero
+                // un OPTIONS de preflight, ese OPTIONS no lleva token, cae en
+                // anyRequest().authenticated() -> 401, y el navegador cancela la peticion real.
+                // El sintoma que ve quien programa el front es un error de CORS que no menciona
+                // autenticacion por ningun lado. Con .cors(), Spring Security atiende el preflight
+                // ANTES de la cadena de autenticacion.
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         // ERROR primero, y no es un detalle: cuando Spring no encuentra un handler
                         // responde 404 y REENVIA a /error. Ese reenvio vuelve a pasar por esta cadena,
@@ -85,6 +97,28 @@ public class SecurityConfig {
                 // (El httpBasic de la mañana FUE andamiaje: aquí ya no está.)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    /**
+     * CORS para los frontends del curso. Origen abierto A PROPOSITO: cada alumno sirve el suyo en
+     * el puerto que le toque (Vite 5173, CRA 3000, Angular 4200...) y mantener una lista seria
+     * pelearse con ella cada clase.
+     *
+     * allowCredentials queda en FALSE, y por eso "*" es admisible: el token viaja en la cabecera
+     * Authorization, no en una cookie. Si algun dia se pasara a cookies, "*" dejaria de estar
+     * permitido por la propia especificacion y habria que enumerar los origenes.
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration cfg = new CorsConfiguration();
+        cfg.setAllowedOriginPatterns(List.of("*"));
+        cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        cfg.setAllowedHeaders(List.of("*"));
+        cfg.setAllowCredentials(false);
+        cfg.setMaxAge(3600L);   // el navegador cachea el preflight una hora
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
     }
 
     /** BCrypt: salt automático + factor de costo. El mismo password da hashes DISTINTOS -> matches(). */
