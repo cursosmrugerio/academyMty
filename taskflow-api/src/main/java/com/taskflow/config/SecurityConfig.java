@@ -1,6 +1,7 @@
 package com.taskflow.config;
 
 import com.taskflow.security.JwtAuthenticationFilter;
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,13 @@ public class SecurityConfig {
                 // server-side con sesión NO se deshabilita.
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // ERROR primero, y no es un detalle: cuando Spring no encuentra un handler
+                        // responde 404 y REENVIA a /error. Ese reenvio vuelve a pasar por esta cadena,
+                        // /error no estaba permitido, y el resultado era un 401 "No autenticado" para
+                        // CUALQUIER ruta mal escrita. Quien se equivocaba en una letra de la URL se
+                        // ponia a arreglar su login, que no era el problema. Permitiendo el dispatch
+                        // de ERROR, el codigo real (404) llega intacto al cliente.
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         // Público: login/registro y las herramientas de doc/consola.
                         .requestMatchers("/auth/**").permitAll()
                         // /info: metadatos del servicio (nombre + versión) — PÚBLICO para el smoke
