@@ -1,5 +1,6 @@
 package com.taskflow.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -15,10 +16,12 @@ import jakarta.validation.constraints.Size;
  */
 public record ProjectRequest(
 
+        @Schema(example = "Rediseño del sitio")
         @NotBlank(message = "El nombre es obligatorio.")
         @Size(min = 3, max = 80, message = "El nombre debe tener entre 3 y 80 caracteres.")
         String name,
 
+        @Schema(example = "Landing nueva para el cliente")
         String description
 ) {
 }

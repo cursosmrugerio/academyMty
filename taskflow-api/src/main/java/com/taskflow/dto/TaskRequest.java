@@ -2,6 +2,7 @@ package com.taskflow.dto;
 
 import com.taskflow.model.Priority;
 import jakarta.validation.constraints.NotBlank;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -26,17 +27,22 @@ import java.time.LocalDate;
  */
 public record TaskRequest(
 
+        @Schema(example = "Maquetar la portada")
         @NotBlank(message = "El título es obligatorio.")
         @Size(min = 3, max = 120, message = "El título debe tener entre 3 y 120 caracteres.")
         String title,
 
+        @Schema(example = "Primera version, solo desktop")
         String description,
 
+        @Schema(example = "HIGH")
         @NotNull(message = "La prioridad es obligatoria.")
         Priority priority,
 
-        Long assigneeId,      // opcional (sin anotación): null = sin asignar
+        @Schema(example = "2", description = "id del responsable; null = sin asignar")
+        Long assigneeId,
 
-        LocalDate dueDate     // opcional (sin anotación): la regla de fecha es del dominio, y solo al crear
+        @Schema(example = "2030-12-31", description = "Formato yyyy-MM-dd. Al CREAR no puede ser pasada")
+        LocalDate dueDate
 ) {
 }
