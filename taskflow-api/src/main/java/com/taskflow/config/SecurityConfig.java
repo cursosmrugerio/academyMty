@@ -8,6 +8,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -73,6 +74,15 @@ public class SecurityConfig {
                         // ponia a arreglar su login, que no era el problema. Permitiendo el dispatch
                         // de ERROR, el codigo real (404) llega intacto al cliente.
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                        // La UI estática de la semana de QE (index.html, register.html,
+                        // projects.html, project.html, help.html y sus css/js), que se copia
+                        // a src/main/resources/static/. Sin esta línea, anyRequest()
+                        // .authenticated() devuelve 401 hasta para "/" y el navegador no
+                        // llega ni a pintar el login: la UI no se puede servir desde aquí.
+                        // Solo GET, y solo la raíz o rutas con extensión — el API no usa
+                        // extensiones, así que no hay forma de que choquen.
+                        .requestMatchers(HttpMethod.GET,
+                                "/", "/*.html", "/css/**", "/js/**", "/favicon.ico").permitAll()
                         // Público: login/registro y las herramientas de doc/consola.
                         .requestMatchers("/auth/**").permitAll()
                         // /info: metadatos del servicio (nombre + versión) — PÚBLICO para el smoke
