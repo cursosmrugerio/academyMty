@@ -17,7 +17,7 @@
 - [ ] `java -jar target/taskflow-api-3.0.0.jar`
 - [ ] `http://localhost:8080/swagger-ui/index.html` abre
 - [ ] Login con `ana` / `ana123` devuelve un token
-- [ ] Con el token pegado en **Authorize**, `GET /api/tasks` responde
+- [ ] Con el token pegado en **Authorize**, `GET /tasks` responde  ← es `/tasks`, **sin `/api`**
 
 > Si algo de esto está rojo, dilo en el canal de atascos **el domingo**.
 > Quien llegue el lunes sin esto verde no puede empezar el bloque de las 11:15.
