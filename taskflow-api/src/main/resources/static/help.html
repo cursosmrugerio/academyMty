@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ayuda de TaskFlow</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 1rem;
+            margin: 0;
+        }
+        h2 { margin-top: 0; }
+        button {
+            border: 1px solid #ccc;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Panel de Ayuda</h2>
+    <ul>
+        <li>Para crear un proyecto, ve a la lista de proyectos y haz clic en "Nuevo Proyecto".</li>
+        <li>Dentro de un proyecto, puedes filtrar tareas por estado u ordenarlas.</li>
+        <li>El token de sesión se guarda en `localStorage` y se envía en cada petición.</li>
+    </ul>
+    <button data-testid="btn-help-ok">Entendido</button>
+    <p data-testid="help-feedback" style="margin-top: 1rem;"></p>
+    <script>
+        document.querySelector('[data-testid="btn-help-ok"]').addEventListener('click', () => {
+            document.querySelector('[data-testid="help-feedback"]').textContent = '¡Gracias!';
+        });
+    </script>
+</body>
+</html>

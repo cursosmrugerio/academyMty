@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Proyecto - TaskFlow</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/project.js" defer></script>
+</head>
+<body>
+    <header class="navbar">
+        <a href="projects.html" class="navbar-brand">TaskFlow</a>
+        <div class="navbar-user">
+            <span data-testid="nav-username"></span>
+            <button class="btn btn-secondary btn-sm" data-testid="btn-logout">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="project-header">
+            <div>
+                 <a href="projects.html" style="text-decoration: none; color: var(--secondary-color); margin-bottom: 0.5rem; display: inline-block;">&larr; Proyectos</a>
+                 <!-- El contador «N tareas» es hueco intencional (sin id ni data-testid):
+                      se localiza en D4 como following-sibling:: del h1 project-name.
+                      Por eso el span es hermano ADYACENTE del h1, no de otro contenedor. -->
+                 <div class="project-title-row">
+                    <h1 data-testid="project-name" style="margin: 0;"></h1>
+                    <span class="task-count"></span>
+                 </div>
+            </div>
+        </div>
+        
+        <div class="project-filters">
+            <div class="form-group">
+                <select id="status-filter" class="form-control" data-testid="select-filter-status">
+                    <option value="ALL">Todos</option>
+                    <option value="TODO">Por hacer</option>
+                    <option value="IN_PROGRESS">En curso</option>
+                    <option value="DONE">Hechas</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary" data-testid="dropdown-sort">Ordenar: id</button>
+            </div>
+            <button class="btn btn-primary" data-testid="btn-new-task" style="margin-left: auto;">Nueva Tarea</button>
+        </div>
+
+        <div class="table-container">
+            <table class="table" data-testid="task-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Estado</th>
+                        <th>Prioridad</th>
+                        <th>Fecha límite</th>
+                        <th>Asignado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="task-table-body">
+                    <!-- Las filas de tareas se insertarán aquí -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div data-testid="help-panel" class="help-panel hidden">
+        <iframe data-testid="iframe-help" src="help.html"></iframe>
+    </div>
+    <button class="btn btn-secondary help-toggle" data-testid="btn-help-toggle">Ayuda</button>
+
+    <footer>
+        <p>TaskFlow UI v1.0.0 - Solo para fines de demostración.</p>
+    </footer>
+    <div data-testid="toast-container"></div>
+</body>
+</html>

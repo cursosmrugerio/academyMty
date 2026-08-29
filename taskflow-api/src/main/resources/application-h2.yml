@@ -1,0 +1,32 @@
+# Perfil para usar H2 como base de datos en memoria.
+# Se activa al arrancar Spring Boot con el perfil "h2".
+# Ideal para desarrollo local y pruebas de automatización donde se necesita un estado limpio.
+
+spring:
+  # Configuración de la base de datos
+  datasource:
+    url: jdbc:h2:mem:taskflowdb # URL de la base de datos H2 en memoria
+    driverClassName: org.h2.Driver
+    username: sa
+    password: '' # H2 en memoria no requiere contraseña por defecto
+
+  # Configuración de JPA (Hibernate)
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    # ddl-auto: create-drop -> Las tablas se crean al iniciar y se destruyen al detener la aplicación.
+    # Esto asegura una base de datos limpia en cada ejecución.
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true # Formatea el SQL en los logs para que sea más legible
+    show-sql: false # No mostrar cada consulta SQL en los logs, format_sql es suficiente
+
+  # Configuración de la consola web de H2
+  h2:
+    console:
+      enabled: true # Habilita la consola H2 en /h2-console
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
