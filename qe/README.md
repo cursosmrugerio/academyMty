@@ -1,0 +1,30 @@
+# QE — Semana 5, de miércoles a viernes
+
+El andamiaje de los tres días de automatización de pruebas. Cada carpeta es un proyecto Maven que
+**ya compila** y trae los `// TODO` que completas tú.
+
+| Carpeta | Día | Tema |
+|---|---|---|
+| `dia-1/` | **miércoles 9-sep** | Fundamentos, arquitectura de Selenium y localizadores CSS |
+| `dia-2/` | **jueves 10-sep** | XPath, interacción con elementos y **esperas** |
+| `dia-3/` | **viernes 11-sep** | Page Object Model |
+
+> Ojo con la numeración: son los días **1, 2 y 3 de QE**, que caen en el **3.º, 4.º y 5.º de la
+> semana**. Si tu guía habla del jueves, tu carpeta es `dia-2/`.
+
+## El sujeto de prueba está en este mismo repo
+
+Se automatiza **`taskflow-api/`**, que además ya trae la UI dentro. Arráncalo así y ya tienes
+todo — no hay que copiar nada ni sembrar datos:
+
+```bash
+cd taskflow-api
+mvn spring-boot:run -Dspring-boot.run.profiles=h2
+```
+
+`http://localhost:8080/` muestra el login. Usuario **`ana`**, contraseña **`ana123`**. La base es
+en memoria y se puebla sola en cada arranque, así que si enredas los datos basta con reiniciar.
+
+## Las soluciones no están aquí
+
+Y no es un olvido: el ejercicio es escribirlas. Se revisan en clase.

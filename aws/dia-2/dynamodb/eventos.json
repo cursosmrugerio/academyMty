@@ -1,0 +1,7 @@
+[
+  { "taskId": "T-001", "fechaHora": "2026-09-08T09:15:00Z", "tipo": "CREADA",      "autor": "ana",   "detalle": "Maquetar la pantalla de proyectos" },
+  { "taskId": "T-001", "fechaHora": "2026-09-08T10:02:00Z", "tipo": "ASIGNADA",    "autor": "admin", "detalle": "asignada a luis" },
+  { "taskId": "T-001", "fechaHora": "2026-09-08T11:40:00Z", "tipo": "EN_PROGRESO", "autor": "luis",  "detalle": "" },
+  { "taskId": "T-002", "fechaHora": "2026-09-08T09:30:00Z", "tipo": "CREADA",      "autor": "luis",  "detalle": "Revisar el contrato de la API" },
+  { "taskId": "T-002", "fechaHora": "2026-09-08T16:05:00Z", "tipo": "COMPLETADA",  "autor": "luis",  "detalle": "" }
+]

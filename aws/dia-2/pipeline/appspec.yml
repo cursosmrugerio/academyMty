@@ -1,0 +1,37 @@
+# appspec.yml — lo lee el agente de CodeDeploy DENTRO de la EC2.
+# Va en la RAÍZ del artefacto que produce CodeBuild.
+version: 0.0
+os: linux
+
+files:
+  - source: TODO          # ¿dónde quedó el jar dentro del artefacto?
+    destination: TODO     # ¿dónde lo quieres en la instancia?
+  - source: TODO          # la unit de systemd
+    destination: TODO     # ¿dónde busca systemd sus units?
+
+hooks:
+  # Rellena cada hook con el script que le toca.
+  # Antes de escribir nada, abre tu comandos-ec2.md de AYER: cada uno de estos
+  # hooks es uno de los comandos que ejecutaste a mano.
+  #
+  # OJO con ApplicationStop: se ejecuta desde el archivo de la revisión ANTERIOR.
+  # En el PRIMER despliegue no hay ninguna, así que se salta entero.
+  ApplicationStop:
+    - location: TODO
+      timeout: 60
+      runas: root
+
+  AfterInstall:
+    - location: TODO
+      timeout: 60
+      runas: root
+
+  ApplicationStart:
+    - location: TODO
+      timeout: 120
+      runas: root
+
+  ValidateService:
+    - location: TODO
+      timeout: 180
+      runas: root

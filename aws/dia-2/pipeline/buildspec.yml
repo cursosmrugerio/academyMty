@@ -1,0 +1,27 @@
+# buildspec.yml — lo lee CodeBuild. Va en la RAÍZ de tu repositorio.
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: TODO          # ¿qué runtime? pista: es el mismo Java que instalaste ayer
+
+  build:
+    commands:
+      - TODO              # el comando con el que empaquetaste ayer en tu laptop
+
+  post_build:
+    commands:
+      # PROBLEMA: el jar sale como taskflow-api-3.0.0.jar, con la versión dentro
+      # del nombre. Y appspec.yml NO admite comodines en files.source.
+      # ¿Qué haces aquí para que el nombre sea estable?
+      - TODO
+
+artifacts:
+  files:
+    # ¿Qué se tiene que llevar el artefacto para que CodeDeploy pueda trabajar?
+    # Piensa: el jar… ¿y qué más? ¿Cómo sabe CodeDeploy qué hacer con él?
+    - TODO
+    - TODO
+    - TODO
+    - TODO

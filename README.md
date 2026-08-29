@@ -149,6 +149,26 @@ ocupado— está en su [`README`](taskflow-api/README.md).
 
 ---
 
+## `aws/` y `qe/` — la semana 5, y por qué están aquí
+
+Estas dos carpetas no son ejercicios de clase resueltos como el resto del repositorio: son
+**andamiaje con `// TODO` que completas tú** durante la semana del 7 al 11 de septiembre.
+
+| Carpeta | Días | Qué es |
+|---|---|---|
+| [`aws/`](aws/) | lunes y martes | Desplegar `taskflow-api` en AWS: primero a mano sobre una EC2, después con un pipeline que lo hace solo |
+| [`qe/`](qe/) | miércoles a viernes | Automatizar pruebas contra `taskflow-api` con Selenium y Page Object Model |
+
+**Viven en este repositorio a propósito**, y no en uno aparte: las dos semanas giran alrededor de
+`taskflow-api/`, que está justo al lado. El lunes lo empaquetas y lo despliegas; el viernes le
+escribes las pruebas. Tener el sujeto y sus herramientas en el mismo clone significa **un solo
+`git clone` para toda la semana**.
+
+Cada carpeta tiene su propio README con el reparto por día y cómo arrancar. **Las soluciones no
+están aquí**, y no es un olvido: el ejercicio es escribirlas.
+
+---
+
 ## Cómo abrirlo en Eclipse
 
 1. Clona el repositorio:

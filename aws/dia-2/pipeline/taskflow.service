@@ -1,0 +1,24 @@
+# taskflow.service — la respuesta de verdad al dolor de ayer.
+# Ayer, al cerrar la sesión SSH, se te moría la aplicación y lo tapamos con
+# "nohup ... &". Eso es un parche. Esto es lo que hace un servidor de verdad.
+
+[Unit]
+Description=TaskFlow API
+After=TODO                 # ¿qué tiene que estar listo antes de arrancar una API?
+
+[Service]
+Type=simple
+User=TODO                  # ¿con qué usuario corre? (el mismo con el que entras por SSH)
+WorkingDirectory=TODO      # ojo: la base H2 se escribe en ./data, relativo a esto
+ExecStart=TODO             # el comando exacto, con rutas ABSOLUTAS
+
+# Spring Boot sale con código 143 cuando lo para systemd. Eso NO es un fallo.
+SuccessExitStatus=143
+
+Restart=TODO               # ¿qué quieres que pase si el proceso muere solo?
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+# Para ver la salida:  journalctl -u taskflow -f
