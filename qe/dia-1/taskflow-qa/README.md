@@ -3,6 +3,11 @@
 Suite de automatización sobre TaskFlow. Crece los tres días: hoy encuentra elementos,
 mañana los usa y los espera, el viernes se convierte en un framework.
 
+> **Esta carpeta no es tu proyecto: es el andamiaje de hoy.** Tu proyecto lo creas a partir de
+> ella, en un repositorio tuyo, y es el mismo los tres días.
+> Cómo, en **[`qe/COMO-TRABAJAS.md`](../../COMO-TRABAJAS.md)** — hazlo antes de escribir la
+> primera línea.
+
 ## Cómo se corre
 
 ```bash

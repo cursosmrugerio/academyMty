@@ -2,6 +2,9 @@
 
 Hoy los elementos ya no están todos ahí desde el principio.
 
+> **Sigues en el proyecto del miércoles.** Hoy no se empieza nada nuevo: se le añaden 5 archivos.
+> Los comandos, en **[`qe/COMO-TRABAJAS.md`](../../COMO-TRABAJAS.md)**.
+
 ## Antes de correr nada
 
 ```bash

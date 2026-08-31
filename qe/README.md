@@ -12,6 +12,16 @@ El andamiaje de los tres días de automatización de pruebas. Cada carpeta es un
 > Ojo con la numeración: son los días **1, 2 y 3 de QE**, que caen en el **3.º, 4.º y 5.º de la
 > semana**. Si tu guía habla del jueves, tu carpeta es `dia-2/`.
 
+## Antes de abrir nada: dónde vive tu código
+
+Estas tres carpetas **no son tres proyectos que se hacen por separado**. Son las piezas nuevas
+que se añaden cada día **al mismo proyecto**, y ese proyecto es tuyo y vive en **tu** repositorio,
+no en este. Aquí solo se lee.
+
+👉 **[`COMO-TRABAJAS.md`](COMO-TRABAJAS.md)** — los comandos exactos de cada día. Léelo el
+miércoles antes que nada; si el jueves empiezas de cero, el viernes no te va a salir el ejercicio
+con el que abre el día.
+
 ## El sujeto de prueba está en este mismo repo
 
 Se automatiza **`taskflow-api/`**, que además ya trae la UI dentro. Arráncalo así y ya tienes
