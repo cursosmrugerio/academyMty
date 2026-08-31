@@ -28,3 +28,11 @@ en memoria y se puebla sola en cada arranque, así que si enredas los datos bast
 ## Las soluciones no están aquí
 
 Y no es un olvido: el ejercicio es escribirlas. Se revisan en clase.
+
+**Con una excepción, y va avisada.** [`auditoria/`](auditoria/) no es material de clase: es la
+herramienta con la que se comprueba que lo que las guías afirman sobre TaskFlow siga siendo
+cierto —que cada localizador que nombran encuentre algo— y para eso tiene que traerlos ya
+resueltos. Su README lo avisa en la primera línea. Si eres alumno, no la abras hasta el viernes.
+
+Existe porque hizo falta: la guía del jueves mandaba buscar en la página de registro «algo que
+contenga `egistr`», y ahí no había nada. Leyendo no se vio; ejecutando, sí.

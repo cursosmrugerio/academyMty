@@ -167,6 +167,10 @@ escribes las pruebas. Tener el sujeto y sus herramientas en el mismo clone signi
 Cada carpeta tiene su propio README con el reparto por día y cómo arrancar. **Las soluciones no
 están aquí**, y no es un olvido: el ejercicio es escribirlas.
 
+La única excepción es [`qe/auditoria/`](qe/auditoria/), que no es material de clase sino la
+herramienta del instructor: comprueba contra el SUT vivo que cada cosa que las guías afirman
+sobre TaskFlow siga siendo cierta. Trae localizadores resueltos, y su README lo avisa.
+
 ---
 
 ## Cómo abrirlo en Eclipse
