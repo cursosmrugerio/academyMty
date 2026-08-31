@@ -74,8 +74,14 @@ class LocalizacionTest {
     void enlaceDeRegistro() {
         // TODO: por su texto. Hay dos localizadores para esto: uno exige el
         //       texto completo y otro se conforma con un trozo.
-        //       OJO: el texto de ese enlace lleva ACENTO. Si eliges el que
-        //       exige el texto completo, tiene que ser exacto, acento incluido.
+        //
+        //       OJO: el enlace dice «Regístrate», y ese acento estorba a LOS DOS.
+        //       El de texto completo tiene que ser exacto, acento incluido. Y el
+        //       del trozo NO puede cruzar la í: el trozo obvio, 'egistr', devuelve
+        //       CERO — entre la g y la s hay una í. Elige un trozo que no la pise
+        //       (o que la lleve bien escrita) y compruebalo en DevTools ANTES de
+        //       escribirlo aqui. Es el primer localizador del curso que falla sin
+        //       que nadie haya tocado la pagina.
     }
 
     @Test

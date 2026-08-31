@@ -43,8 +43,19 @@ class XPathTest {
     @Test
     @DisplayName("Por texto parcial con contains()")
     void porTextoParcial() {
-        // TODO: en la pagina de registro, algo que contenga 'egistr'.
-        //       ¿Por que aqui conviene contains() y no text()?
+        // TODO: en la pagina de registro, localiza por 'Crear Cuenta'.
+        //
+        //       Escribe los DOS y cuenta cuantos nodos devuelve cada uno:
+        //           //*[contains(text(),'Crear Cuenta')]
+        //           //*[text()='Crear Cuenta']
+        //
+        //       No dan lo mismo, y esa diferencia ES la respuesta a la pregunta:
+        //       ¿cuando conviene contains() y cuando text()? Uno de los dos se
+        //       lleva ademas el titulo de la pagina. Mira cual, y decide si eso
+        //       te sirve o te estorba.
+        //
+        //       Y de paso pruebalo con 'cuenta' en minuscula: XPath 1.0 distingue
+        //       mayusculas, y vas a caer en un nodo COMPLETAMENTE distinto.
     }
 
     @Test
