@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -31,6 +32,15 @@ import org.springframework.context.annotation.Configuration;
  * documento diría que hace falta token para pedir el token: una mentira circular, y además la que
  * más confunde a quien abre Swagger por primera vez.
  *
+ * LA URL DE SERVIDOR, Y POR QUÉ ES RELATIVA: si no se declara `servers`, springdoc la GENERA a
+ * partir de la petición que sirvió el documento. Detrás de un proxy que termina TLS (CloudFront,
+ * delante de esta API desde el 31-ago-2026) eso produce «http://ec2-...compute-1.amazonaws.com»:
+ * el esquema y el puerto del ORIGEN, no los que ve el navegador. Consecuencia MEDIDA: el Swagger
+ * se abre por HTTPS pero cada «Try it out» dispara a HTTP, el navegador lo bloquea por mixed
+ * content, y los botones quedan de adorno. Con url = "/" la dirección se resuelve contra la página
+ * que sirve el Swagger, así que funciona sin tocar nada en los tres sitios donde vive esta API: el
+ * localhost:8080 de cada alumno, la IP pública por HTTP, y el dominio HTTPS de CloudFront.
+ *
  * NOTA: esto es documentación, no seguridad. Quien decide qué se protege es SecurityConfig; aquí
  * solo se DESCRIBE esa decisión. Si las dos divergen, la que manda es SecurityConfig y este
  * archivo pasa a estar mintiendo.
@@ -46,6 +56,7 @@ import org.springframework.context.annotation.Configuration;
                         de ~15 personas. Autenticación con JWT: primero POST /auth/login, y el \
                         token que devuelve se pega en «Authorize» (arriba a la derecha). \
                         Usuarios sembrados: ana/ana123, luis/luis123 y admin/admin123."""),
+        servers = @Server(url = "/", description = "La API, relativa a donde se sirva esta página"),
         security = @SecurityRequirement(name = OpenApiConfig.ESQUEMA_JWT))
 @SecurityScheme(
         name = OpenApiConfig.ESQUEMA_JWT,
