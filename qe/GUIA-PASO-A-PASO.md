@@ -621,7 +621,11 @@ lo tuyo.
 del paso anterior.
 
 El trabajo de hoy —XPath, interacción y los cinco casos de espera— está en Moodle: **Día 4 · QE →
-Guía del día**. Antes de entregar, esto no debe listar nada:
+Guía del día**. Y hay un archivo que los comandos de arriba **no copian** a propósito:
+`../academyMty/qe/dia-2/taskflow-qa/README.md`, con la tabla de las cinco esperas y las decisiones
+que hay que dejar escritas. Ábrelo y pasa esa tabla a **tu** `README.md`, debajo de la del
+miércoles: el DoD del día la pide, y sin ella la entrega no cuenta. Antes de entregar, esto no
+debe listar nada:
 
 ```bash
 grep -rn 'Thread.sleep' src/test/java
