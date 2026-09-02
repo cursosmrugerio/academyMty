@@ -106,7 +106,10 @@ grep -rc 'data-testid' src/test/java | sort -t: -k2 -rn
 ```
 
 La pregunta es «si hoy renombran `btn-login`, ¿cuántos archivos abro?». En un proyecto que llegó
-al viernes arrastrando los tres días, la respuesta son **5 archivos** solo con el andamiaje —más
-con tu código dentro—, y ese número es el que justifica el Page Object Model.
+al viernes arrastrando los tres días, la respuesta son **5 archivos** —medido: 11 apariciones
+repartidas en 5 archivos—, y ese número es el que justifica el Page Object Model.
+
+Esos 5 salen **del andamiaje solo**: no dependen de cuánto hayas escrito tú. Escribir tests que no
+usen `data-testid` —el driver, un `quit()`, comprobar un título— no sube la cuenta.
 
 Si empezaste el viernes de cero, la respuesta es 1, no duele nada, y el día no tiene sentido.
