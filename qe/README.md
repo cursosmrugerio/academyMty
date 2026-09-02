@@ -22,6 +22,14 @@ no en este. Aquí solo se lee.
 miércoles antes que nada; si el jueves empiezas de cero, el viernes no te va a salir el ejercicio
 con el que abre el día.
 
+👉 **[`GUIA-PASO-A-PASO.md`](GUIA-PASO-A-PASO.md)** — lo mismo, pero de la mano: cada paso dice qué
+vas a hacer, qué escribir, **qué tiene que salir en pantalla** y qué hacer si sale otra cosa.
+Empieza por aquí si es tu primera vez con Selenium o con Maven. Incluye qué terminal abrir en
+🪟 Windows y en 🍎 macOS/Linux.
+
+👉 **[`comprobar-ambiente.sh`](comprobar-ambiente.sh)** — comprueba si tu máquina está lista, antes
+del miércoles. Se ejecuta desde Moodle (Guía de ambiente — Día 0, capítulo 11).
+
 ## El sujeto de prueba está en este mismo repo
 
 Se automatiza **`taskflow-api/`**, que además ya trae la UI dentro. Arráncalo así y ya tienes
