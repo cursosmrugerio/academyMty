@@ -270,10 +270,12 @@ git commit -m "Andamiaje del miercoles"
 
 ```
 [main (root-commit) 0e5afb5] Andamiaje del miercoles
- 5 files changed, 306 insertions(+)
+ 6 files changed, 315 insertions(+)
 ```
 
-El código de siete letras es distinto en cada computadora. Lo que importa es **`5 files changed`**.
+El código de siete letras es distinto en cada computadora. Lo que importa es **`6 files changed`**:
+el `pom.xml`, el `README.md`, los tres `.java` y un `.gitignore` que deja fuera `target/` y los
+archivos de tu editor.
 
 **❌ Si dice `Please tell me who you are`:** git no sabe tu nombre todavía. Ponlo una sola vez —
 sirve para siempre — y repite el `git commit`:
@@ -387,7 +389,7 @@ algo que no has visto a mano.**
 
 Y fíjate en el **título de la pestaña** de Chrome: lo vas a necesitar en el Paso 9.
 
-**❌ Si Chrome dice «No se puede acceder a este sitio» (`ERR_CONNECTION_REFUSED`):** TaskFlow no
+**❌ Si Chrome dice «No se puede acceder a este sitio web» y abajo `ERR_CONNECTION_REFUSED`:** TaskFlow no
 está arriba. Mira la segunda terminal: o sigue arrancando —espera a `Started TaskflowApiApplication`—
 o se murió con un error; léelo, casi siempre es el puerto 8080 ocupado (Paso 6).
 
@@ -536,7 +538,8 @@ git push
 ```
 
 **✅ Qué debes ver:** el `push` termina con una línea `main -> main`, y el commit aparece en
-la página de tu repositorio en GitHub.
+la página de tu repositorio en GitHub. 🪟 En Windows salen antes unos avisos
+`warning: ... LF will be replaced by CRLF`: son normales, sigue.
 
 **❌ Si un objetivo falla con `NoSuchElementException`:** ese localizador devuelve cero en DevTools.
 Vuelve a la regla de oro: pruébalo con `$$("...")` antes de tocar el Java. **❌ Si el `push` pide

@@ -1,0 +1,9 @@
+# Lo que se construye o es de tu editor no se entrega (Dia 0, cap. 2)
+target/
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+bin/
