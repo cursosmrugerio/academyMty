@@ -23,7 +23,9 @@ esac
 echo "-------------------------------------------------------------------"
 
 # --- 1. JDK 21 -----------------------------------------------------------
+HAY_JAVA=0
 if command -v java >/dev/null 2>&1; then
+  HAY_JAVA=1
   JV=$(java -version 2>&1 | head -1)
   case "$JV" in
     *'"21'*) ok "JDK 21" "$JV" ;;
@@ -36,17 +38,22 @@ fi
 # --- 2. javac (JDK, no solo JRE) ----------------------------------------
 if command -v javac >/dev/null 2>&1; then
   ok "javac" "$(javac -version 2>&1 | head -1)"
-else
+elif [ "$HAY_JAVA" -eq 1 ]; then
   mal "javac" "tienes JRE pero no JDK. Reinstala el JDK completo"
+else
+  mal "javac" "no se encontro 'javac': viene con el JDK (Dia 0, cap. 1)"
 fi
 
 # --- 3. Maven EN LA TERMINAL (el de IntelliJ no sirve aqui) -------------
 if command -v mvn >/dev/null 2>&1; then
-  MV=$(mvn -version 2>&1 | head -1)
-  MJ=$(mvn -version 2>&1 | grep -i '^Java version' | head -1)
+  MV=$(mvn -B -version 2>&1 | head -1)
+  MJ=$(mvn -B -version 2>&1 | grep -i '^Java version' | head -1)
   case "$MV" in
     *'Apache Maven 3.9'*) ok "Maven 3.9.x" "$MV" ;;
-    *)                    aviso "Maven" "version distinta de 3.9.x -> $MV" ;;
+    *'Apache Maven 4'*)   aviso "Maven" "version 4.x: no probada en el curso -> $MV" ;;
+    *)  mal "Maven 3.9.x" "tienes $MV. Con 3.8 o 3.6 (el 'apt install maven' de Ubuntu/Debian)"
+        echo  "                         el proyecto NO compila ('Source option 5 is no longer supported')."
+        echo  "                         Instala 3.9.x de maven.apache.org (Dia 0, cap. 3)." ;;
   esac
   case "$MJ" in
     *' 21'*) ok "Maven usa Java 21" "$MJ" ;;
@@ -99,7 +106,15 @@ case "$(uname -s)" in
     fi ;;
   *)
     if command -v google-chrome >/dev/null 2>&1; then ok "Google Chrome" "$(google-chrome --version)"
-    else mal "Google Chrome" "no se encontro 'google-chrome'"; fi ;;
+    elif command -v google-chrome-stable >/dev/null 2>&1; then ok "Google Chrome" "$(google-chrome-stable --version)"
+    elif command -v chromium >/dev/null 2>&1 || command -v chromium-browser >/dev/null 2>&1; then
+      aviso "Google Chrome" "solo hay Chromium: no esta probado en el curso. Instala Google Chrome (Dia 0, cap. 7)"
+    else
+      case "$(uname -m)" in
+        aarch64|arm64) mal "Google Chrome" "Google Chrome no existe para Linux ARM ($(uname -m)); avisa al instructor" ;;
+        *) mal "Google Chrome" "no se encontro 'google-chrome'. Instala el .deb o .rpm de google.com/chrome (Dia 0, cap. 7)" ;;
+      esac
+    fi ;;
 esac
 
 # --- 6. Puerto 8080 ------------------------------------------------------

@@ -3,7 +3,7 @@
 > ⌨️ **Antes de teclear nada — qué terminal usar.**
 > 🪟 **Windows: abre Git Bash**, no PowerShell ni el Símbolo del sistema. Los comandos de aquí abajo
 > sólo funcionan ahí, y algunos —como `mkdir -p`— **fallan sin dar ningún error**.
-> 🍎 **macOS / Linux: Terminal.**
+> 🍎 **macOS: Terminal.** 🐧 **Linux: Terminal** (Ctrl + Alt + T).
 > Compruébalo con `uname -s`: debe decir `MINGW64_...`, `Darwin` o `Linux`.
 >
 > 📘 **¿Primera vez?** Esta página es el resumen de comandos. Si prefieres que te lleven de la mano

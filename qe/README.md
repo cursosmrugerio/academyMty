@@ -25,7 +25,7 @@ con el que abre el día.
 👉 **[`GUIA-PASO-A-PASO.md`](GUIA-PASO-A-PASO.md)** — lo mismo, pero de la mano: cada paso dice qué
 vas a hacer, qué escribir, **qué tiene que salir en pantalla** y qué hacer si sale otra cosa.
 Empieza por aquí si es tu primera vez con Selenium o con Maven. Incluye qué terminal abrir en
-🪟 Windows y en 🍎 macOS/Linux.
+🪟 Windows, 🍎 macOS y 🐧 Linux, y cómo instalar JDK, Maven y Chrome en Linux.
 
 👉 **[`comprobar-ambiente.sh`](comprobar-ambiente.sh)** — comprueba si tu máquina está lista, antes
 del miércoles. Se ejecuta desde Moodle (Guía de ambiente — Día 0, capítulo 11).
