@@ -457,12 +457,14 @@ de verdad valida tu ambiente**, porque es el primero que abre un navegador.
 
 Abre el proyecto en tu editor. En **IntelliJ**: File → Open → la carpeta `taskflow-qa-<tu-usuario>`
 → Open, acepta el aviso de confianza (*Trust Project*) y espera a que termine de indexar (la barra
-de abajo). Después abre `src/test/java/com/taskflow/qa/tests/SmokeTest.java` y completa:
+de abajo). En **Eclipse**: File → Import → Existing Maven Projects → la misma carpeta → Finish; y el
+jueves y el viernes, después de copiar archivos, pulsa F5 sobre el proyecto para que los vea.
+Después abre `src/test/java/com/taskflow/qa/tests/SmokeTest.java` y completa:
 
 - **TODO 1** — crear el driver de Chrome: `driver = new ChromeDriver();`
   **Y arriba, junto a los otros `import`:** `import org.openqa.selenium.chrome.ChromeDriver;`
   Sin esa línea no compila (`cannot find symbol`). IntelliJ la añade sola si aceptas su sugerencia
-  (Alt + Enter sobre `ChromeDriver`).
+  (Alt + Enter sobre `ChromeDriver`); en Eclipse, Ctrl + Shift + O.
   *(No hace falta `System.setProperty` ni WebDriverManager: Selenium Manager resuelve el driver solo.)*
 - **TODO 2** — cerrarlo: `if (driver != null) driver.quit();`
 - **TODO 3** — `driver.get(Paginas.LOGIN);` y después `assertEquals("...", driver.getTitle());` con
