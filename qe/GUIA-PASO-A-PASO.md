@@ -56,7 +56,11 @@ avisa al instructor**.
 ## Paso 0 · Comprueba tu computadora (lunes o martes)
 
 **Qué vas a hacer:** ejecutar un comprobador que mira si tienes lo que hace falta — **JDK 21**,
-**Maven 3.9.x**, **Git** y **Google Chrome**— y te dice qué falta. No instala ni cambia nada.
+**Maven 3.9.x**, **Git con tu nombre configurado** y **Google Chrome**— y te dice qué falta. No
+instala ni cambia nada.
+
+> No descargues nada de selenium.dev ni ningún `chromedriver`: Selenium llega con Maven en el
+> Paso 8 y el driver lo baja Selenium Manager solo en el Paso 9.
 
 Abre tu terminal (🪟 **Git Bash** · 🍎 **Terminal** · 🐧 **Terminal** — el Paso 1 explica cuál es cuál)
 y **escribe esto**, que es igual en los tres ambientes:
@@ -66,16 +70,19 @@ curl -fsSL -o comprobar-ambiente.sh https://raw.githubusercontent.com/cursosmrug
 bash comprobar-ambiente.sh
 ```
 
-**✅ Qué debes ver:** una lista de líneas `[ OK ]` y, tres líneas antes del final, ésta:
+**✅ Qué debes ver:** una lista de líneas `[ OK ]` y, casi al final, ésta:
 
 ```
   RESULTADO: LISTO PARA EL MIERCOLES
 ```
 
 Guarda toda la salida: es la primera de las dos cosas que se entregan el martes (ver después del Paso 8).
+Si quieres, pégala ya en la tarea de Moodle: la entrega se puede **editar** hasta el martes para añadir
+el enlace del Paso 5.
 
 **❌ Si alguna línea dice `[FALTA]`:** te falta esa pieza. Se instala con la **Guía de ambiente —
-Día 0** de Moodle (curso → sección **Recursos**): cada línea `[FALTA]` te dice el capítulo. Un
+Día 0** de Moodle (curso → sección **Recursos**): cada línea `[FALTA]` te dice el capítulo. Cuando lo
+arregles, **repite las dos líneas de arriba**: lo que se entrega es la salida que dice `LISTO`. Un
 resumen de lo que más falta:
 
 | Falta | 🪟 Windows | 🍎 macOS | 🐧 Linux (Ubuntu / Debian) |
@@ -83,6 +90,7 @@ resumen de lo que más falta:
 | JDK 21 | instalador de [adoptium.net](https://adoptium.net) (Temurin 21) | `brew install --cask temurin@21` | repo de Adoptium — **ver abajo** |
 | Maven 3.9.x | `.zip` de maven.apache.org y `bin\` al PATH (Día 0, cap. 3) | `brew install maven` | **no uses `apt install maven`** — ver abajo |
 | Git | git-scm.com | `git --version` lo instala si no está | `sudo apt install git` |
+| Identidad de git | `git config --global user.name "Tu Nombre"` y `git config --global user.email "tu@correo.com"` (Día 0, cap. 4) — igual en los tres | ← | ← |
 | Google Chrome | google.com/chrome | google.com/chrome | el `.deb` de google.com/chrome — ver abajo |
 
 🐧 **Linux, en detalle** (medido en Ubuntu 24.04 y 22.04):
@@ -211,8 +219,8 @@ Receiving objects: 100% (1648/1648), 17.50 MiB | 9.17 MiB/s, done.
 Resolving deltas: 100% (478/478), done.
 ```
 
-🪟 En Windows sale además una última línea `Updating files: 100% (730/730), done.` En 🍎 y 🐧 no
-sale, y es normal.
+🪟 En Windows **puede** salir además una última línea `Updating files: 100% (730/730), done.`; si no
+sale, es normal. En 🍎 y 🐧 no sale.
 
 **❌ Si dice `fatal: destination path 'academyMty' already exists`:** ya lo tenías descargado. No
 pasa nada, pero actualízalo:

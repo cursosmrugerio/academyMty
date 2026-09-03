@@ -73,11 +73,11 @@ if command -v git >/dev/null 2>&1; then
   if [ -n "$GN" ] && [ -n "$GE" ]; then
     ok "Identidad Git" "$GN <$GE>"
   elif [ -z "$GN" ] && [ -z "$GE" ]; then
-    mal "Identidad Git" "sin configurar: el primer commit va a fallar"
+    mal "Identidad Git" "sin configurar: git config --global user.name / user.email (Dia 0, cap. 4)"
   elif [ -z "$GN" ]; then
-    mal "Identidad Git" "falta user.name (email si esta: $GE)"
+    mal "Identidad Git" "falta user.name: git config --global user.name \"Tu Nombre\" (Dia 0, cap. 4)"
   else
-    mal "Identidad Git" "falta user.email (nombre si esta: $GN)"
+    mal "Identidad Git" "falta user.email: git config --global user.email \"tu@correo.com\" (Dia 0, cap. 4)"
   fi
 else
   mal "Git" "no se encontro 'git'"
@@ -136,4 +136,6 @@ else
   echo "             Todas se resuelven con la Guia de ambiente - Dia 0 de Moodle."
 fi
 echo "==================================================================="
-echo "  Copia TODO este texto y pegalo en la tarea de Moodle."
+echo "  Guarda TODO este texto: se pega en la tarea de Moodle junto con el enlace"
+echo "  a tu repositorio (Paso 5). Si alguna linea dice [FALTA], arreglala y vuelve"
+echo "  a ejecutar este comprobador antes de entregar."
