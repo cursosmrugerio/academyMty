@@ -36,7 +36,7 @@ java -version                # salida: TODO
 ## 4. El jar viaja
 
 ```bash
-scp -i taskflow-key.pem target/taskflow-api-*.jar ec2-user@TODO:~/taskflow-api.jar
+scp -i TODO/taskflow-key.pem target/taskflow-api-*.jar ec2-user@TODO:~/taskflow-api.jar   # TODO = ruta a tu .pem (fuera del repo)
 # tardó: TODO
 sha256sum ~/taskflow-api.jar            # en la EC2 no existe shasum
 # hash en la EC2: TODO
@@ -55,6 +55,8 @@ URL de mi Swagger público: `TODO`
 ## 6. Arranque contra RDS (tarde)
 
 ```bash
+ps aux | grep java          # el de la mañana sigue vivo: PID = TODO
+kill TODO
 nohup java -jar taskflow-api.jar \
   --spring.profiles.active=docker \
   --DB_HOST=TODO --DB_PORT=5432 --DB_NAME=taskflow \
@@ -70,6 +72,7 @@ nohup java -jar taskflow-api.jar \
 
 ```bash
 grep -n "Caused by" app.log | head -3   # ← la causa real está en la PRIMERA cadena (el último dice "Dialect": es consecuencia)
+grep -n "already in use" app.log        # ← si sale, no es la red: el proceso de la mañana sigue vivo (kill)
 ps aux | grep java
 curl -s localhost:8080/swagger-ui/index.html | head -3
 ```
