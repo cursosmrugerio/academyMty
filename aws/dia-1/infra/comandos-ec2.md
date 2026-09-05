@@ -38,7 +38,7 @@ java -version                # salida: TODO
 ```bash
 scp -i taskflow-key.pem target/taskflow-api-*.jar ec2-user@TODO:~/taskflow-api.jar
 # tardó: TODO
-shasum -a 256 ~/taskflow-api.jar
+sha256sum ~/taskflow-api.jar            # en la EC2 no existe shasum
 # hash en la EC2: TODO
 # ¿coinciden? TODO
 ```
