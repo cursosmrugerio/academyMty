@@ -69,7 +69,7 @@ nohup java -jar taskflow-api.jar \
 ## 7. Diagnóstico
 
 ```bash
-grep "Caused by" app.log | tail -3      # ← la causa real está en el ÚLTIMO
+grep -n "Caused by" app.log | head -3   # ← la causa real está en la PRIMERA cadena (el último dice "Dialect": es consecuencia)
 ps aux | grep java
 curl -s localhost:8080/swagger-ui/index.html | head -3
 ```
