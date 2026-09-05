@@ -8,7 +8,7 @@
       Una cuenta recién nacida puede quedar en *pending verification* y **no dejarte lanzar una EC2**.
 - [ ] En el registro elegiste el **plan gratuito** («Free account plan»), no el de pago.
 - [ ] Puedes entrar a la consola y ves el panel principal.
-- [ ] Región puesta en **`us-east-1`**.
+- [ ] Región puesta en **`us-east-1`** (si tu cuenta es de la *experiencia nueva* —entras por `settings.aws.com` y ves un proyecto «Proof of Concept»— tu región es **`us-east-2` Ohio** y no puedes cambiarla: anótalo, todo el curso lo haces ahí).
 
 ## Prework del domingo (20 min)
 
