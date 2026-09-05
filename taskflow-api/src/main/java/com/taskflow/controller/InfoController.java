@@ -39,6 +39,11 @@ public class InfoController {
             description = "Público (sin token): lo consume el smoke test del deploy tras cada release.")
     @GetMapping("/info")
     public Map<String, String> info() {
-        return Map.of("app", APP, "version", VERSION);
+        // LinkedHashMap y no Map.of: el orden de las claves tiene que ser el mismo en cada arranque
+        // porque esta salida se copia literal en las guías (version primero, app después).
+        Map<String, String> info = new java.util.LinkedHashMap<>();
+        info.put("version", VERSION);
+        info.put("app", APP);
+        return info;
     }
 }
