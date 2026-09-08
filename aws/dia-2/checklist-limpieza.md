@@ -1,4 +1,4 @@
-# Checklist de limpieza — martes
+# Checklist de limpieza — jueves
 
 **Todo lo de ayer, más lo de hoy.**
 
@@ -16,5 +16,5 @@
 
 Mi consola la revisó: `_______________________`
 
-> Fin de los dos días de AWS. Mañana no se crea nada en la nube:
-> mañana empieza automatización de pruebas, y corre todo en tu laptop.
+> Fin de los dos días de AWS. Mañana es día de trabajo en proyectos:
+> si vuelves a levantar algo en la nube, la regla es la misma. Se destruye al cierre.

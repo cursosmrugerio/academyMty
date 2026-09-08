@@ -1,6 +1,6 @@
-# Checklist previo — antes del lunes 7 de septiembre
+# Checklist previo — antes del miércoles 9 de septiembre
 
-> Esto **no** se hace el lunes por la mañana. Se hace antes.
+> Esto **no** se hace el miércoles por la mañana. Se hace antes.
 
 ## Cuenta AWS (al menos 3 días antes)
 
@@ -10,7 +10,7 @@
 - [ ] Puedes entrar a la consola y ves el panel principal.
 - [ ] Región puesta en **`us-east-1`** (si tu cuenta es de la *experiencia nueva* —entras por `settings.aws.com` y ves un proyecto «Proof of Concept»— tu región es **`us-east-2` Ohio** y no puedes cambiarla: anótalo, todo el curso lo haces ahí).
 
-## Prework del domingo (20 min)
+## Prework del martes (20 min)
 
 - [ ] `git clone https://github.com/cursosmrugerio/academyMty.git`
 - [ ] `cd academyMty/taskflow-api && mvn package`
@@ -19,8 +19,8 @@
 - [ ] Login con `ana` / `ana123` devuelve un token
 - [ ] Con el token pegado en **Authorize**, `GET /tasks` responde  ← es `/tasks`, **sin `/api`**
 
-> Si algo de esto está rojo, dilo en el canal de atascos **el domingo**.
-> Quien llegue el lunes sin esto verde no puede empezar el bloque de las 11:15.
+> Si algo de esto está rojo, dilo en el canal de atascos **el martes**.
+> Quien llegue el miércoles sin esto verde no puede empezar el bloque de las 11:15.
 
 ## Herramientas
 

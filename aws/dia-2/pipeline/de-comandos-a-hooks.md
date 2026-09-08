@@ -1,6 +1,6 @@
 # De los comandos de ayer a los hooks de hoy
 
-> Abre tu `comandos-ec2.md` del lunes al lado. **Cada comando que ejecutaste a mano
+> Abre tu `comandos-ec2.md` del miércoles al lado. **Cada comando que ejecutaste a mano
 > es una línea de un hook.** Esa es toda la idea del día.
 
 | Ayer lo hiciste así (a mano) | Hoy vive en… | Hook |

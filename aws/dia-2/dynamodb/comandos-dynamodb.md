@@ -14,9 +14,11 @@ aws dynamodb create-table \
   --key-schema \
       AttributeName=taskId,KeyType=TODO \
       AttributeName=fechaHora,KeyType=TODO \
-  --billing-mode PAY_PER_REQUEST \
-  --region us-east-1
+  --billing-mode PAY_PER_REQUEST
 ```
+
+> Sin `--region`: la tabla se crea en la región que configuraste con `aws configure`
+> (`us-east-1`, o `us-east-2` Ohio si tu cuenta es de la experiencia nueva: ahí `us-east-1` está bloqueado).
 
 > `HASH` es la *partition key* y `RANGE` la *sort key*. ¿Cuál va en cada sitio, y por qué?
 >
