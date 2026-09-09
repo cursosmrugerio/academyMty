@@ -19,7 +19,7 @@
                   ▼
   ┌─────────────────────────────────┐
   │ SG: TODO                        │   sin IP pública
-  │ RDS: TODO   ·  PostgreSQL 16    │
+  │ RDS: TODO   ·  PostgreSQL TODO  │
   │ endpoint: TODO (ofuscado)       │
   └─────────────────────────────────┘
 ```
@@ -28,7 +28,7 @@
 
 | Recurso | Identificador | Región |
 |---|---|---|
-| Instancia EC2 | `TODO` | `us-east-1` |
+| Instancia EC2 | `TODO` | `TODO` (`us-east-1`, o `us-east-2` si tu cuenta es de la experiencia nueva) |
 | IP pública | `TODO` | |
 | Security group de la EC2 | `TODO` | |
 | Instancia RDS | `TODO` | |

@@ -55,20 +55,23 @@ URL de mi Swagger público: `TODO`
 ## 6. Arranque contra RDS (tarde)
 
 ```bash
+# endpoint del RDS (MP-8 → Connectivity & security): TODO
 ps aux | grep java          # el de la mañana sigue vivo: PID = TODO
 kill TODO
-openssl rand -hex 32        # genera tu JWT_SECRET (64 caracteres): pégalo abajo. Salida = TODO
+openssl rand -hex 32        # genera tu JWT_SECRET (64 caracteres). La salida NO se anota aquí: va a tu gestor de contraseñas
 nohup java -jar taskflow-api.jar \
   --spring.profiles.active=docker \
   --DB_HOST=TODO --DB_PORT=5432 --DB_NAME=taskflow \
-  --DB_USER=taskflow --DB_PASSWORD='TODO' \
-  --JWT_SECRET='TODO' \
+  --DB_USER=taskflow --DB_PASSWORD='<no se escribe aquí>' \
+  --JWT_SECRET='<no se escribe aquí>' \
   > app.log 2>&1 &
 ```
 
-> ⚠ El `JWT_SECRET` son **64 caracteres nuevos** que genera `openssl rand -hex 32`, no el de desarrollo
-> que viene en `application.yml` (ese está en GitHub: con él cualquiera fabrica tokens de `admin`).
-> Y no lo pegues en ningún archivo que vayas a commitear.
+> ⚠ **Este archivo va a tu repo.** La contraseña del RDS (la que inventaste en el wizard de MP-8) y el
+> `JWT_SECRET` se quedan en tu gestor de contraseñas o en un archivo fuera del repo, junto al `.pem`;
+> aquí se dejan tal cual `<no se escribe aquí>`. El `JWT_SECRET` son **64 caracteres nuevos** que genera
+> `openssl rand -hex 32`, no el de desarrollo de `application.yml` (ese está en GitHub: con él cualquiera
+> fabrica tokens de `admin`).
 
 ## 7. Diagnóstico
 
