@@ -1,5 +1,10 @@
 # appspec.yml — lo lee el agente de CodeDeploy DENTRO de la EC2.
 # Va en la RAÍZ del artefacto que produce CodeBuild.
+#
+# Este archivo y la carpeta scripts/ se copian a la RAÍZ de tu repo taskflow-aws-<usuario>,
+# junto a buildspec.yml y taskflow.service. Y los .sh tienen que ir ejecutables EN GIT:
+#   git add scripts && git update-index --chmod=+x scripts/*.sh
+#   git ls-files -s scripts/      → las cuatro líneas empiezan por 100755
 version: 0.0
 os: linux
 

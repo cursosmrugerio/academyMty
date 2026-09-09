@@ -4,7 +4,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: TODO          # ¿qué runtime? pista: es el mismo Java que instalaste ayer
+      java: TODO          # el mismo Java que instalaste ayer, escrito como lo llama CodeBuild: correttoNN («21» a secas rompe la fase install)
 
   build:
     commands:

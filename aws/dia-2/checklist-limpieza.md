@@ -7,8 +7,10 @@
 - [ ] **CodeDeploy** → borrar el deployment group y la aplicación
 - [ ] **DynamoDB** → borrar la tabla `taskflow-eventos`
 - [ ] **EC2** → Terminate instance
-- [ ] **S3** → vaciar y borrar el bucket de artefactos
+- [ ] **S3** → vaciar y borrar el bucket de artefactos (y el `codepipeline-<región>-…` si CodePipeline creó uno)
 - [ ] **IAM** → borrar los roles creados hoy
+- [ ] **IAM → IAM users → `taskflow-admin` → Security credentials → Access keys** → Deactivate → Delete
+- [ ] **Developer Tools → Connections** → `github-taskflow` (y cualquier *Pending* con el mismo nombre)
 - [ ] **EC2 → Key pairs** → borrar `taskflow-key` y el `.pem` local
 - [ ] **Budgets → NO TOCAR**
 
