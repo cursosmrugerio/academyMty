@@ -16,6 +16,7 @@ shasum -a 256 target/taskflow-api-*.jar
 ## 2. Conectar
 
 ```bash
+# security group de mi EC2 (Instances → mi instancia → pestaña Security; taskflow-ec2-sg o launch-wizard-1): TODO
 chmod 400 taskflow-key.pem
 ssh -i taskflow-key.pem ec2-user@TODO
 ```
