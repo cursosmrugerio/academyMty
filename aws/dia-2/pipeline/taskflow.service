@@ -1,34 +1,47 @@
 # taskflow.service — la respuesta de verdad al dolor de ayer.
 # Ayer, al cerrar la sesión SSH, se te moría la aplicación y lo tapamos con
-# "nohup ... &". Eso es un parche. Esto es lo que hace un servidor de verdad.
+# "nohup ... &". Eso es un parche. Esto es lo que hace un servidor de verdad:
+# un servicio del sistema, que arranca solo, se reinicia solo y escribe sus logs
+# en el journal.
 #
 # OJO: en un archivo de systemd los comentarios van en SU PROPIA LÍNEA. Un "# ..."
 # al final de una línea con valor NO es comentario: forma parte del valor y rompe
-# la unidad (User inválido, WorkingDirectory con espacios, Restart ignorado).
-# Por eso cada pregunta va ARRIBA de su clave. Deja las líneas de valor limpias.
+# la unidad. Por eso cada explicación va ARRIBA de su clave.
+#
+# Lo copia a /etc/systemd/system el appspec.yml (files), y permisos.sh hace el
+# daemon-reload + enable. Tú no lo tocas en la máquina.
 
 [Unit]
+# Nombre que verás en "systemctl status taskflow" y en el journal.
 Description=TaskFlow API
-# ¿Qué tiene que estar listo antes de arrancar una API?
-After=TODO
+# Arrancar solo cuando la red ya está lista: una API sin red no sirve de nada.
+After=network.target
 
 [Service]
+# simple: el proceso de ExecStart ES el servicio (java no se va a segundo plano solo).
 Type=simple
-# ¿Con qué usuario corre? (el mismo con el que entras por SSH)
-User=TODO
-# Ojo: la base H2 se escribe en ./data, relativo a esto
-WorkingDirectory=TODO
-# El comando exacto, con rutas ABSOLUTAS
-ExecStart=TODO
+# El mismo usuario con el que entras por SSH. Nunca root: por eso permisos.sh hace
+# el chown de /opt/taskflow a ec2-user.
+User=ec2-user
+# Directorio desde el que corre. La base H2 se escribe en ./data, relativo a esto.
+WorkingDirectory=/opt/taskflow
+# El comando exacto, con rutas ABSOLUTAS: systemd no tiene tu PATH. /usr/bin/java existe
+# desde el "dnf install java-21-amazon-corretto-headless"; el jar se llama así porque
+# buildspec.yml lo renombra y appspec.yml lo deja en /opt/taskflow.
+ExecStart=/usr/bin/java -jar /opt/taskflow/taskflow-api.jar
 
-# Spring Boot sale con código 143 cuando lo para systemd. Eso NO es un fallo.
+# Spring Boot sale con código 143 cuando lo para systemd (SIGTERM). Eso NO es un fallo;
+# sin esta línea, "systemctl stop" dejaría el servicio marcado como failed.
 SuccessExitStatus=143
 
-# ¿Qué quieres que pase si el proceso muere solo?
-Restart=TODO
+# Si el proceso muere por lo que sea, systemd lo vuelve a levantar a los 5 segundos.
+# "nohup" nunca hizo eso.
+Restart=always
 RestartSec=5
 
 [Install]
+# En qué momento del arranque de la máquina se activa cuando está "enabled":
+# multi-user.target es el arranque normal de un servidor sin escritorio.
 WantedBy=multi-user.target
 
 # Para ver la salida:  journalctl -u taskflow -f

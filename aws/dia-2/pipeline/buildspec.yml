@@ -1,27 +1,44 @@
-# buildspec.yml — lo lee CodeBuild. Va en la RAÍZ de tu repositorio.
+# buildspec.yml — lo lee CodeBuild. Va en la RAÍZ de tu repositorio taskflow-aws-<tu-usuario>.
+# Describe cómo se construye el artefacto que después CodeDeploy instala en la EC2.
+
+# Versión del formato de buildspec. Siempre 0.2.
 version: 0.2
 
 phases:
+  # install: qué runtime necesita el contenedor de build.
   install:
     runtime-versions:
-      java: TODO          # el mismo Java que instalaste ayer, escrito como lo llama CodeBuild: correttoNN («21» a secas rompe la fase install)
+      # El mismo Java 21 (Corretto) que instalaste en la EC2 con dnf, escrito como lo llama
+      # CodeBuild. «21» a secas rompe la fase install con "Unknown runtime version".
+      java: corretto21
 
+  # build: el mismo comando con el que empaquetaste ayer en tu laptop.
   build:
     commands:
-      - TODO              # el comando con el que empaquetaste ayer en tu laptop
+      # Solo informativo: queda en el log del build.
+      - echo "Empaquetando $(date)"
+      # -q: menos ruido en el log. -DskipTests: hoy no corren los tests en el build
+      # (en un proyecto real sí; si los activas, recuerda que InfoControllerTest comprueba la versión).
+      - mvn -q -DskipTests package
 
+  # post_build: corre después de build, con el jar ya generado.
   post_build:
     commands:
-      # PROBLEMA: el jar sale como taskflow-api-3.0.0.jar, con la versión dentro
-      # del nombre. Y appspec.yml NO admite comodines en files.source.
-      # ¿Qué haces aquí para que el nombre sea estable?
-      - TODO
+      # El jar sale como target/taskflow-api-3.0.0.jar, con la versión en el nombre, y
+      # appspec.yml NO admite comodines en files.source. Se renombra a un nombre estable.
+      - mv target/taskflow-api-*.jar target/taskflow-api.jar
+      # Comprobación visible en el log: tamaño y nombre del jar que va a viajar.
+      - ls -lh target/taskflow-api.jar
 
+# artifacts: qué se sube a S3 como artefacto. Es TODO lo que CodeDeploy necesita en la EC2.
 artifacts:
   files:
-    # ¿Qué se tiene que llevar el artefacto para que CodeDeploy pueda trabajar?
-    # Piensa: el jar… ¿y qué más? ¿Cómo sabe CodeDeploy qué hacer con él?
-    - TODO
-    - TODO
-    - TODO
-    - TODO
+    # 1. el jar renombrado
+    - target/taskflow-api.jar
+    # 2. las instrucciones de despliegue: si no viaja dentro del artefacto, CodeDeploy
+    #    falla antes de empezar ("appspec.yml not found"). Tenerlo en el repo no basta.
+    - appspec.yml
+    # 3. la unit de systemd que appspec copia a /etc/systemd/system
+    - taskflow.service
+    # 4. los cuatro hooks (la carpeta entera, con su bit de ejecución)
+    - scripts/**/*

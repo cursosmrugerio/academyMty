@@ -5,14 +5,14 @@
 
 | Ayer lo hiciste así (a mano) | Hoy vive en… | Hook |
 |---|---|---|
-| `mvn -q -DskipTests package` | `TODO` | — |
-| `scp … taskflow-api.jar ec2-user@IP:~` | `TODO` | — |
-| *(no lo hiciste: matabas el proceso con `kill`)* | `TODO` | `TODO` |
-| `chown` / permisos del jar | `TODO` | `TODO` |
-| `nohup java -jar … &` | `TODO` | `TODO` |
-| abrir el navegador a ver si respondía | `TODO` | `TODO` |
+| `mvn -q -DskipTests package` | `buildspec.yml` → `phases.build` | — (lo corre CodeBuild, no CodeDeploy) |
+| `scp … taskflow-api.jar ec2-user@IP:~` | `appspec.yml` → `files` (source → destination) | — (la copia la hace el agente antes de `AfterInstall`) |
+| *(no lo hiciste: matabas el proceso con `kill`)* | `scripts/parar.sh` → `systemctl stop taskflow \|\| true` | `ApplicationStop` |
+| `chown` / permisos del jar | `scripts/permisos.sh` → `chown -R ec2-user …` + `daemon-reload` + `enable` | `AfterInstall` |
+| `nohup java -jar … &` | `scripts/arrancar.sh` → `systemctl start taskflow` (y `taskflow.service` con el `ExecStart`) | `ApplicationStart` |
+| abrir el navegador a ver si respondía | `scripts/verificar.sh` → `curl` a `/info` con reintentos | `ValidateService` |
 
-## Preguntas
+## Preguntas (estas sí las respondes tú; van al entregable)
 
 **1. ¿Cuántos comandos ejecutaste a mano ayer? ¿Y hoy?**
 

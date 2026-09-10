@@ -1,42 +1,58 @@
-# appspec.yml — lo lee el agente de CodeDeploy DENTRO de la EC2.
-# Va en la RAÍZ del artefacto que produce CodeBuild.
+# appspec.yml — lo lee el agente de CodeDeploy DENTRO de la EC2, para saber qué copiar
+# y qué scripts correr, en qué orden. Va en la RAÍZ del artefacto que produce CodeBuild
+# (por eso buildspec.yml lo lista en artifacts.files).
 #
-# Este archivo y la carpeta scripts/ se copian a la RAÍZ de tu repo taskflow-aws-<usuario>,
-# junto a buildspec.yml y taskflow.service. Y los .sh tienen que ir ejecutables EN GIT:
+# Este archivo, taskflow.service y la carpeta scripts/ van a la RAÍZ de tu repo
+# taskflow-aws-<tu-usuario>, junto a buildspec.yml. Los .sh tienen que ser ejecutables EN GIT:
 #   git add scripts && git update-index --chmod=+x scripts/*.sh
 #   git ls-files -s scripts/      → las cuatro líneas empiezan por 100755
+
+# Versión del formato de appspec para EC2/On-premises. Siempre 0.0 (no es la versión de tu app).
 version: 0.0
+# Sistema operativo de la instancia. Amazon Linux 2023 es linux.
 os: linux
 
+# files: qué se copia del artefacto a la máquina, y a dónde. Rutas "source" relativas a la
+# raíz del artefacto; "destination" absolutas en la EC2.
 files:
-  - source: TODO          # ¿dónde quedó el jar dentro del artefacto?
-    destination: TODO     # ¿dónde lo quieres en la instancia?
-  - source: TODO          # la unit de systemd
-    destination: TODO     # ¿dónde busca systemd sus units?
+  # El jar. Se llama taskflow-api.jar (sin versión) porque buildspec.yml lo renombra en
+  # post_build: appspec no admite comodines en source, el nombre tiene que ser fijo.
+  - source: target/taskflow-api.jar
+    # Carpeta de la aplicación en la instancia. Es el WorkingDirectory de taskflow.service,
+    # y donde H2 crea ./data.
+    destination: /opt/taskflow
+  # La unit de systemd viaja dentro del artefacto y se deja donde systemd busca las units
+  # creadas por el administrador.
+  - source: taskflow.service
+    destination: /etc/systemd/system
 
+# hooks: qué script corre en cada fase del despliegue. Cada uno es uno de los comandos
+# que ayer ejecutaste a mano (ver de-comandos-a-hooks.md).
+# Orden real: ApplicationStop → (copia de files) → AfterInstall → ApplicationStart → ValidateService.
 hooks:
-  # Rellena cada hook con el script que le toca.
-  # Antes de escribir nada, abre tu comandos-ec2.md de AYER: cada uno de estos
-  # hooks es uno de los comandos que ejecutaste a mano.
-  #
-  # OJO con ApplicationStop: se ejecuta desde el archivo de la revisión ANTERIOR.
-  # En el PRIMER despliegue no hay ninguna, así que se salta entero.
+  # Para el servicio ANTES de sobrescribir el jar. OJO: este hook se ejecuta con el appspec
+  # de la revisión ANTERIOR; en el primer despliegue no hay ninguna y se salta entero.
   ApplicationStop:
-    - location: TODO
+    - location: scripts/parar.sh
+      # segundos máximos antes de dar el hook por fallido
       timeout: 60
+      # usuario con el que corre el script; root porque toca /opt y systemd
       runas: root
 
+  # Ya se copiaron los files: ajustar dueño de /opt/taskflow y registrar la unit.
   AfterInstall:
-    - location: TODO
+    - location: scripts/permisos.sh
       timeout: 60
       runas: root
 
+  # Arrancar el servicio.
   ApplicationStart:
-    - location: TODO
+    - location: scripts/arrancar.sh
       timeout: 120
       runas: root
 
+  # Comprobar que la app responde. Si este script sale con error, el despliegue queda en rojo.
   ValidateService:
-    - location: TODO
+    - location: scripts/verificar.sh
       timeout: 180
       runas: root
