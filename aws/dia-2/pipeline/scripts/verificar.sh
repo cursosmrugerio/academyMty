@@ -5,6 +5,8 @@ set -uo pipefail
 # ¿Contra qué endpoint compruebas que la app está viva?
 # PISTA: tiene que ser uno PÚBLICO. Si eliges uno protegido te va a devolver
 # 401 y vas a creer que el despliegue falló.
+# Y el HOST: este script corre DENTRO de la EC2, así que es localhost, no la IP
+# pública (la IP cambia cada vez que relanzas la instancia y este archivo va al repo).
 URL="TODO"
 
 # La aplicación tarda unos segundos en levantar. Comprobar a los 0 segundos
