@@ -30,7 +30,7 @@ phases:
       # Comprobación visible en el log: tamaño y nombre del jar que va a viajar.
       - ls -lh target/taskflow-api.jar
 
-# artifacts: qué se sube a S3 como artefacto. Es TODO lo que CodeDeploy necesita en la EC2.
+# artifacts: qué se sube a S3 como artefacto. Es todo lo que CodeDeploy necesita en la EC2.
 artifacts:
   files:
     # 1. el jar renombrado
