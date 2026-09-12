@@ -48,3 +48,16 @@ proyectosWeb/springWebFlux/Conceptos/notebook/
 # (jdbc:h2:file:./data/taskflow). Es estado de ejecucion de cada maquina, no fuente.
 **/data/*.mv.db
 **/data/*.trace.db
+
+# Llaves privadas de SSH. El material de AWS manda crear un key pair y guardar el
+# .pem FUERA del repo, pero basta con que alguien lo deje aqui una vez para que
+# quien clone se lleve una credencial ajena. El 11-sep-2026 aparecio un
+# taskflow-key.pem suelto dentro de taskflow-api/: sin rastrear, pero tampoco
+# ignorado, o sea que un `git add .` lo habria publicado.
+*.pem
+*.ppk
+*.key
+# Excepcion: las llaves del ejercicio de JWT SI se versionan. Son material
+# didactico generado para la practica (no protegen nada real) y sin ellas
+# 02-security-jwt no arranca al clonar.
+!**/src/main/resources/certs/*.pem
