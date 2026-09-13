@@ -1,0 +1,21 @@
+{
+  "servers": {
+    "taskflow": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-jar", "${workspaceFolder}/taskflow-mcp/target/taskflow-mcp.jar"],
+      "env": {
+        "TASKFLOW_URL": "http://localhost:8080"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--isolated"]
+    },
+    "aws-knowledge": {
+      "type": "http",
+      "url": "https://knowledge-mcp.global.api.aws"
+    }
+  }
+}

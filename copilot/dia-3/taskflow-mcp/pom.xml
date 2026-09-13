@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  taskflow-mcp: un servidor MCP escrito en Java que le da al agente tres herramientas sobre TaskFlow:
+  listar_tareas_vencidas, listar_proyectos y crear_tarea. Por dentro no hace nada mágico: hace login en
+  la API REST de TaskFlow y la llama, igual que harías tú con Invoke-RestMethod.
+
+  Es un proyecto Maven APARTE de taskflow-api (vive en su propia carpeta, con su propio pom.xml):
+  tiene otro ciclo de vida, otra versión de Spring Boot y se empaqueta en su propio jar.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Spring Boot 4.1.1, NO la 3.5.3 de taskflow-api: Spring AI 2.x (el que trae el servidor MCP)
+         se construye sobre Boot 4. Por eso este proyecto no puede vivir dentro del pom de la API. -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.taskflow</groupId>
+    <artifactId>taskflow-mcp</artifactId>
+    <version>1.0.0</version>
+    <name>taskflow-mcp</name>
+    <description>Servidor MCP (stdio) que expone herramientas sobre la API REST de TaskFlow.</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <spring-ai.version>2.0.1</spring-ai.version>
+    </properties>
+
+    <!-- El BOM de Spring AI fija las versiones de todos sus módulos: por eso abajo no llevan <version>. -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- El servidor MCP. Con spring.ai.mcp.server.stdio=true habla JSON-RPC por la entrada y la
+             salida estándar del proceso: Copilot CLI lo arranca como proceso hijo y le escribe por stdin. -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-server</artifactId>
+        </dependency>
+
+        <!-- RestClient, el cliente HTTP de Spring, con Jackson para convertir JSON <-> records.
+             Es lo que usa TaskflowClient para hablar con la API. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
+        </dependency>
+
+        <!-- JUnit 5, AssertJ y MockRestServiceServer (un servidor HTTP falso): los tests corren SIN la API. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Nombre fijo del jar: target/taskflow-mcp.jar. Así la ruta que registras en Copilot no cambia
+             si algún día subes la versión del proyecto. -->
+        <finalName>taskflow-mcp</finalName>
+        <plugins>
+            <!-- Empaqueta un jar ejecutable con todas las dependencias dentro: java -jar target/taskflow-mcp.jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

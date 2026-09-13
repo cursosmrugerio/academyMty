@@ -171,6 +171,13 @@ La única excepción es [`qe/auditoria/`](qe/auditoria/), que no es material de 
 herramienta del instructor: comprueba contra el SUT vivo que cada cosa que las guías afirman
 sobre TaskFlow siga siendo cierta. Trae localizadores resueltos, y su README lo avisa.
 
+## `copilot/` — la semana 6
+
+Los archivos de práctica de **GitHub Copilot** (CLI de lunes a jueves, VS Code el viernes), del 14 al
+18 de septiembre. Aquí vienen **completos**: specs, skills, agentes, un servidor MCP en Java y scripts de
+comprobación que copias a tu repo `taskflow-copilot-<tu-usuario>`, una copia de `taskflow-api/`. El reparto
+por día está en [`copilot/README.md`](copilot/README.md).
+
 ---
 
 ## Cómo abrirlo en Eclipse
