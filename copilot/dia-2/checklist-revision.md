@@ -2,8 +2,8 @@
 
 Se recorre **en orden**, en PowerShell 7, desde la raíz de tu repo `taskflow-copilot-<tu-usuario>`, en la rama
 de la feature, en una pestaña donde ya corriste `[Console]::OutputEncoding = [Text.UTF8Encoding]::new()`.
-Ningún punto depende de lo que el agente diga: cada uno es un comando y lo que tiene que salir. Lo que falle va
-al prompt de corrección (MP-4 de la guía del Día 2).
+Ningún punto depende de lo que el agente diga: cada uno es un comando y lo que tiene que salir. Cada punto que
+falle tiene su follow-up en MP-4 de la guía del Día 2; los que pasan no llevan ninguno.
 
 Los comandos están escritos para `GET /tasks/overdue`, comparando contra `main`. Para `GET /tasks/unassigned`
 (MP-7 de la guía) cambian cuatro cosas: la base (`feature/overdue` en lugar de `main`), el método de la mutación
@@ -75,8 +75,10 @@ dos `Select-String`, nada. Una línea cambiada cuenta como una borrada más una 
 
 **Caso real (Mac, follow-up):** tras un prompt que pedía «borra los comentarios que afirman algo no
 verificado», `--numstat` pasó a `21  17  …TaskServiceTest.java`: el agente borró el Javadoc de 17 líneas que la
-clase ya tenía. Suite verde. Por eso el prompt de corrección de la guía dice «solo en las líneas que agregaste en
-esta rama».
+clase ya tenía. Suite verde. Por eso los follow-ups de la guía dicen «solo en las líneas que agregaste en esta
+rama». Esa frase no protege lo que agregó el propio agente: en el recorrido del 13-sep, un prompt que pedía las
+tres correcciones a la vez borró sus tres comentarios verdaderos con `--numstat` en `0`. Por eso, un follow-up por
+punto que falló.
 
 **Si sale otra cosa:** `/rewind` → el turno que lo hizo → **Conversation + files**, y repite con la restricción.
 
@@ -89,7 +91,9 @@ git diff main -- src | Select-String -NoEmphasis '^\+\s*(//|/\*|\*)' | Tee-Objec
 ```
 
 **Qué debe salir:** todas las líneas de comentario agregadas. Pregunta para cada una: *¿da una razón, y es verdad?*
-Un Javadoc que repite lo que hace el método está bien; una razón tiene que ser comprobable.
+Un Javadoc que repite lo que hace el método está bien; una razón tiene que ser comprobable. El patrón solo ve los
+comentarios que empiezan la línea: los que van al final de una línea de código (`… // primero`) se leen en
+`git diff main -- src`.
 
 | Corrida | Comentario | Qué pasa en realidad |
 |---|---|---|
@@ -119,7 +123,7 @@ RESTAURADO: TaskService.java quedó exactamente como estaba.
 ```
 
 Si sale `SIN MUTAR: …`, el método no existe o no ordena con `TaskOrders.POR_FECHA` (acepta también `.sorted(POR_FECHA)`
-con import estático): ya es un hallazgo (puntos 1 o 5) y va al prompt de corrección de MP-4. Si cortaste el script
+con import estático): ya es un hallazgo (puntos 1 o 5) y va al follow-up de la mutación de MP-4. Si cortaste el script
 con Ctrl+C, comprueba que `Select-String -Path src\main\java\com\taskflow\service\TaskService.java -SimpleMatch
 '/*MUTANTE*/'` no imprime nada (ensayado: restauró aun con la sesión cortada). No deshagas una mutación a mano con `git restore`: si el agente tiene cambios sin commitear
 en ese archivo, se van también (pasó en el ensayo).
@@ -139,11 +143,12 @@ git diff main -- src/test/java/com/taskflow/slice | Select-String -NoEmphasis '^
 ```
 
 **Qué debe salir:** nada (el `^\+` limita la búsqueda a líneas agregadas). Casos reales que encuentra:
-claude-sonnet-5 el 12-sep y Windows en el Día 2 (`getOverdue_retorna200YListaOrdenada`). **No** encuentra la variante
+claude-sonnet-5 el 12-sep, Windows en el Día 2 (`getOverdue_retorna200YListaOrdenada`) y el recorrido del 13-sep
+(`getOverdue_retorna200YListaEnOrden`, con `$[0].title` y `$[1].title`). **No** encuentra la variante
 de gpt-5-mini del 12-sep (`getOverdueTasks_retorna200YListaEnOrden`): dos tareas en el mock y solo `$[0]`; esa se ve
 leyendo el nombre del test y el `thenReturn`. En Windows, una versión anterior del follow-up (en
-cinco líneas) le quitó «Ordenada» al nombre pero dejó los `$[1]`; la versión en una línea de la guía lo resolvió a la
-primera. Lo que sí vale en el slice: que la ruta llega al
+cinco líneas) le quitó «Ordenada» al nombre pero dejó los `$[1]`; en una línea se resolvió a la primera (en el ensayo,
+dentro de un prompt con tres correcciones; el 13-sep, con el follow-up de solo este punto, que tocó solo este archivo). Lo que sí vale en el slice: que la ruta llega al
 método nuevo (200, no el `400` de `/tasks/{id}`) y que el JSON trae los campos del `TaskResponse`.
 
 ---
