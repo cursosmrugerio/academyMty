@@ -2,16 +2,17 @@
 
 Se recorre **en orden**, en PowerShell 7, desde la raíz de tu repo `taskflow-copilot-<tu-usuario>`, en la rama
 de la feature, en una pestaña donde ya corriste `[Console]::OutputEncoding = [Text.UTF8Encoding]::new()`.
-Ningún punto depende de lo que el agente diga: cada uno es un comando y lo que tiene que salir. Cada punto que
-falle tiene su follow-up en MP-4 de la guía del Día 2; los que pasan no llevan ninguno.
+Ningún punto depende de lo que el agente diga: cada uno es un comando y lo que tiene que salir. Los puntos 3 y
+4 tienen su follow-up en MP-4 de la guía del Día 2; para los demás, MP-4 dice qué hacer. Los que pasan no llevan ninguno.
 
 Los comandos están escritos para `GET /tasks/overdue`, comparando contra `main`. Para `GET /tasks/unassigned`
 (MP-7 de la guía) cambian cuatro cosas: la base (`feature/overdue` en lugar de `main`), el método de la mutación
 (`-Metodo sinResponsable`), los patrones del punto 5 (`SIN_ASIGNAR|POR_FECHA` y `getAssigneeId\(\) == null` en
 lugar de `isBefore|isAfter`) y no se guarda en `checklist-overdue.txt`.
 
-Los casos reales salen de cuatro corridas con la misma spec de `overdue`: el 12-sep en Mac con `gpt-5-mini` y
-con `claude-sonnet-5`, y el ensayo del Día 2 con `gpt-5-mini` en Mac y en Windows.
+Los casos reales salen de cinco corridas con la misma spec de `overdue`: el 12-sep en Mac con `gpt-5-mini` y
+con `claude-sonnet-5`, el ensayo del Día 2 con `gpt-5-mini` en Mac y en Windows, y el recorrido del 13-sep en una
+laptop Windows 11.
 
 ---
 
