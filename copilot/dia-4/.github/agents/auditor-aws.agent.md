@@ -6,7 +6,7 @@ mcp-servers:
   aws-ro:
     type: local
     command: uvx
-    args: ["mcp-proxy-for-aws-cli@1.6.6", "https://aws-mcp.us-east-1.api.aws/mcp", "--profile", "mcp-readonly", "--metadata", "AWS_REGION=us-east-2"]
+    args: ["--from", "mcp-proxy-for-aws-cli@1.6.6", "python", "-m", "mcp_proxy_for_aws.server", "https://aws-mcp.us-east-1.api.aws/mcp", "--profile", "mcp-readonly", "--metadata", "AWS_REGION=us-east-2"]
     tools: ["aws___run_script", "aws___get_tasks", "aws___search_documentation", "aws___read_documentation"]
     timeout: 120000
 ---
